@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Status - Cloud Computing</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #ccc;
+            font-family: sans-serif;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        h1 { font-size: 1.4em; margin-bottom: 4px; }
+        p.sub { color: #888; margin-bottom: 20px; font-size: 0.9em; }
+        a { color: #6cbf6c; }
+        hr { border: none; border-top: 1px solid #444; margin: 20px 0; }
+        table { border-collapse: collapse; margin-top: 10px; }
+        td { padding: 4px 16px 4px 0; vertical-align: top; }
+        td:first-child { color: #888; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <h1>Deployment Status</h1>
+    <p class="sub">Jayesh Krishan Puri | ID: 24155058</p>
+
+    <p>Status: <strong>{{ details.status }}</strong></p>
+
+    <table>
+        <tr><td>Student Name</td><td>{{ details.student_name }}</td></tr>
+        <tr><td>Student ID</td><td>{{ details.student_id }}</td></tr>
+        <tr><td>External URL</td><td><a href="{{ details.external_url }}" target="_blank">{{ details.external_url }}</a></td></tr>
+        <tr><td>IP Address</td><td>{{ details.ip_address }}</td></tr>
+        <tr><td>Hostname</td><td>{{ details.hostname }}</td></tr>
+        <tr><td>Cloud Provider</td><td>{{ details.cloud_provider }}</td></tr>
+        <tr><td>Framework</td><td>{{ details.framework }}</td></tr>
+        <tr><td>Server Time</td><td>{{ details.timestamp }}</td></tr>
+    </table>
+
+    <hr>
+    <a href="/">Doc Viewer</a> &nbsp;|&nbsp; <a href="/working">Refresh</a>
+</body>
+</html>

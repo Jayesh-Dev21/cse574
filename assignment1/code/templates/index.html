@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Computing Assignment - Doc Viewer</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #ccc;
+            font-family: sans-serif;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        h1 { font-size: 1.4em; margin-bottom: 4px; }
+        p.sub { color: #888; margin-bottom: 20px; font-size: 0.9em; }
+        a { color: #6cbf6c; }
+        hr { border: none; border-top: 1px solid #444; margin: 20px 0; }
+        input[type="url"] {
+            width: 60%;
+            padding: 6px 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: #ccc;
+            font-size: 0.95em;
+        }
+        button {
+            padding: 6px 14px;
+            background: #444;
+            color: #ccc;
+            border: 1px solid #666;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+        button:hover { background: #555; }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #444;
+            margin-top: 16px;
+            background: #fff;
+        }
+        #msg { margin-top: 10px; font-size: 0.9em; }
+        .ok { color: #6cbf6c; }
+        .err { color: #e55; }
+    </style>
+</head>
+<body>
+    <h1>Cloud Computing Assignment</h1>
+    <p class="sub">Jayesh Krishan Puri | ID: 24155058</p>
+
+    <h2>Document Viewer</h2>
+    <p>Enter a URL to view a document (PDF, Google Docs, etc.):</p>
+    <br>
+    <input type="url" id="docUrl" placeholder="https://example.com/document.pdf" />
+    <button onclick="loadDoc()">Load</button>
+    <button onclick="downloadToS3()">Download to S3</button>
+
+    <div id="msg"></div>
+
+    <iframe id="docFrame" src="about:blank"></iframe>
+
+    <hr>
+    <a href="/working">View Deployment Status</a>
+
+    <script>
+        function loadDoc() {
+            var url = document.getElementById('docUrl').value.trim();
+            if (url) document.getElementById('docFrame').src = url;
+        }
+
+        function downloadToS3() {
+            var url = document.getElementById('docUrl').value.trim();
+            var msg = document.getElementById('msg');
+            if (!url) { msg.innerHTML = '<span class="err">Enter a URL first.</span>'; return; }
+
+            msg.innerHTML = 'Uploading to S3...';
+
+            fetch('/download_to_s3', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    msg.innerHTML = '<span class="ok">Saved to ' + data.s3_url + ' (' + data.filename + ')</span>';
+                } else {
+                    msg.innerHTML = '<span class="err">Error: ' + data.error + '</span>';
+                }
+            })
+            .catch(function(e) {
+                msg.innerHTML = '<span class="err">Request failed: ' + e + '</span>';
+            });
+        }
+
+        document.getElementById('docUrl').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') loadDoc();
+        });
+    </script>
+</body>
+</html>
