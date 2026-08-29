@@ -39,7 +39,6 @@
 = Host Machine Specifications
 
 The assignment was completed on a personal laptop running *CachyOS* (an Arch Linux-based rolling-release distribution) with *KDE Plasma* as the primary desktop. A secondary bare-metal Arch Linux installation with the *i3 tiling window manager* is also maintained for testing new kernel releases and patches.
-// Hardware virtualisation (Intel VT-x / AMD-V) is enabled in UEFI.
 
 #table(
   columns: (auto, 1fr),
@@ -75,11 +74,9 @@ The virtual machine was created using *virt-manager* with the following configur
 )
 
 #figure(
-  image("0config.png", width: 80%),
+  image("../screenshots/01_config.png", width: 80%),
   caption: [virt-manager hardware summary -- 2 GB RAM, 20 GB disk, VirtIO devices],
 )
-
-// #pagebreak()
 
 = Installation Steps
 
@@ -90,10 +87,10 @@ In virt-manager, "New Virtual Machine" was clicked and "Local install media" sel
 #grid(
   columns: (1fr, 1fr, 1fr, 1fr),
   gutter: 6pt,
-  figure(image("1new.png", width: 100%), caption: [New VM wizard]),
-  figure(image("2localISO.png", width: 100%), caption: [Local ISO selection]),
-  figure(image("3server.png", width: 100%), caption: [OS type selection]),
-  figure(image("4cpuRam.png", width: 100%), caption: [2 GB RAM, 2 vCPUs]),
+  figure(image("../screenshots/02_new_vm.png", width: 100%), caption: [New VM wizard]),
+  figure(image("../screenshots/03_local_iso.png", width: 100%), caption: [Local ISO selection]),
+  figure(image("../screenshots/04_server.png", width: 100%), caption: [OS type selection]),
+  figure(image("../screenshots/05_cpu_ram.png", width: 100%), caption: [2 GB RAM, 2 vCPUs]),
 )
 
 === Step 2: Disk and VM Name
@@ -103,8 +100,8 @@ A 20 GB virtual disk was created. The VM was named "ubuntu Server".
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("5ssd.png", width: 100%), caption: [20 GB virtual disk]),
-  figure(image("6name.png", width: 100%), caption: [VM name and final summary]),
+  figure(image("../screenshots/06_ssd.png", width: 100%), caption: [20 GB virtual disk]),
+  figure(image("../screenshots/07_name.png", width: 100%), caption: [VM name and final summary]),
 )
 
 === Step 3: Boot and Installer Launch
@@ -114,8 +111,8 @@ The VM booted from the ISO. GRUB appeared, then the Ubuntu Subiquity installer l
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("7.png", width: 100%), caption: [GRUB boot menu]),
-  figure(image("8startup.png", width: 100%), caption: [VM startup from ISO]),
+  figure(image("../screenshots/08_grub.png", width: 100%), caption: [GRUB boot menu]),
+  figure(image("../screenshots/09_startup.png", width: 100%), caption: [VM startup from ISO]),
 )
 
 === Step 4: Boot Log and Installer Welcome
@@ -125,8 +122,8 @@ The kernel enumerated virtual hardware (VirtIO disk, NIC, USB). The Subiquity in
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("9initbootlog.png", width: 100%), caption: [Initial boot/hardware log]),
-  figure(image("10serverstartup.png", width: 100%), caption: [Installer welcome screen]),
+  figure(image("../screenshots/10_boot_log.png", width: 100%), caption: [Initial boot/hardware log]),
+  figure(image("../screenshots/11_installer.png", width: 100%), caption: [Installer welcome screen]),
 )
 
 === Step 5: Storage and Profile Configuration
@@ -136,11 +133,9 @@ The 20 GB VirtIO disk was detected. Default guided LVM partitioning was selected
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("11storage.png", width: 100%), caption: [Storage layout -- 20 GB LVM]),
-  figure(image("12serverprofile.png", width: 100%), caption: [User profile setup]),
+  figure(image("../screenshots/12_storage.png", width: 100%), caption: [Storage layout -- 20 GB LVM]),
+  figure(image("../screenshots/13_profile.png", width: 100%), caption: [User profile setup]),
 )
-
-// #pagebreak()
 
 === Step 6: Installation and Reboot
 
@@ -149,8 +144,8 @@ Packages were installed. On completion, the installer prompted to reboot. The vi
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("13installlog.png", width: 100%), caption: [Installation progress]),
-  figure(image("14reeboot.png", width: 100%), caption: [Reboot prompt after install]),
+  figure(image("../screenshots/14_install.png", width: 100%), caption: [Installation progress]),
+  figure(image("../screenshots/15_reboot.png", width: 100%), caption: [Reboot prompt after install]),
 )
 
 === Step 7: First Boot and Login
@@ -160,8 +155,8 @@ Ubuntu Server booted from the installed disk, ran systemd initialisation, and pr
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("15Firstboot.png", width: 100%), caption: [First boot -- systemd sequence]),
-  figure(image("16login.png", width: 100%), caption: [Ubuntu Server login prompt]),
+  figure(image("../screenshots/16_first_boot.png", width: 100%), caption: [First boot -- systemd sequence]),
+  figure(image("../screenshots/17_login.png", width: 100%), caption: [Ubuntu Server login prompt]),
 )
 
 === Step 8: Verification and Shutdown
@@ -171,22 +166,18 @@ Post-login, the shell was accessible confirming a working install. The VM was th
 #grid(
   columns: (1fr, 1fr),
   gutter: 6pt,
-  figure(image("17complete.png", width: 100%), caption: [Shell prompt -- system operational]),
-  figure(image("19done.png", width: 100%), caption: [VM "Shut Off" in virt-manager]),
+  figure(image("../screenshots/18_complete.png", width: 100%), caption: [Shell prompt -- system operational]),
+  figure(image("../screenshots/20_done.png", width: 100%), caption: [VM "Shut Off" in virt-manager]),
 )
 
 = Challenges Faced
 
 No significant challenges were encountered during the installation. Since the virtualization stack was already well-configured with SPICE for display, VirtIO paravirtualised drivers for disk and network, and libvirt managing the KVM backend, the entire setup from VM creation to a working Ubuntu Server login went smoothly without any issues.
 
-// #pagebreak()
-
 = Observations on Virtualization Performance
 
 QEMU/KVM uses hardware virtualisation extensions so most guest code runs directly on the CPU with minimal overhead.
-//This is the same mechanism used by enterprise hypervisors like VMware ESXi.
 
-// With `cpu mode="host-passthrough"`, the VM sees the host's exact CPU model and feature flags, enabling the guest to use AVX, AES-NI, and other extensions natively. 
 Boot time was roughly 12-15 seconds, close to a bare-metal Ubuntu Server install.
 
 *Memory:* The 2 GB fixed allocation was sufficient for Ubuntu Server. The `virtio-balloon` device allows the hypervisor to reclaim unused guest memory when the VM is idle, which is more efficient than static allocation in VirtualBox.

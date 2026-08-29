@@ -1,0 +1,9 @@
+# Secrets
+.env
+*.pem
+pair.pem
+
+# Allow PDFs in report folders only
+*.pdf
+!assignment1/report/*.pdf
+!assignment2/report/*.pdf

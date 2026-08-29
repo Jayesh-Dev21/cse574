@@ -1,4 +1,4 @@
-pair.pem
+# Secrets
 .env
 *.pem
-*.pdf
+pair.pem
